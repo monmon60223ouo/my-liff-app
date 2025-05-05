@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LIFF Test</title>
+</head>
+<body>
+    <h1>LIFF Test Page</h1>
+    <button onclick="login()">Login with LINE</button>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        liff.init({ liffId: "YOUR_LIFF_ID" }).then(() => {
+            console.log("LIFF Initialized");
+        }).catch((err) => {
+            console.error("LIFF Initialization failed", err);
+        });
+
+        function login() {
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            }
+        }
+    </script>
+</body>
+</html>
