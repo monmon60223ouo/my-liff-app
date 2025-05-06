@@ -1,29 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-  <title>My LIFF Test</title>
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <meta charset="UTF-8" />
+  <title>Redirecting...</title>
+  <meta http-equiv="refresh" content="0; url=liff-register.html" />
 </head>
 <body>
-  <h1>LIFF 測試頁面</h1>
-  <button onclick="login()">LINE 登入</button>
-
-  <script>
-    async function main() {
-      await liff.init({ liffId: "2007365918-80YK42kZ" });
-      if (!liff.isLoggedIn()) {
-        document.querySelector('button').style.display = 'block';
-      } else {
-        const profile = await liff.getProfile();
-        document.body.innerHTML += `<p>你好，${profile.displayName}</p>`;
-      }
-    }
-
-    function login() {
-      liff.login();
-    }
-
-    main();
-  </script>
+  <p>正在導向到註冊頁面...</p>
 </body>
 </html>
