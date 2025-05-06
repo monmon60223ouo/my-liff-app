@@ -11,7 +11,7 @@ async function register() {
   }
 
   try {
-    const res = await fetch(`https://your-backend.com/api/auth/callback?code=${code}&lineId=${lineId}`);
+    const res = await fetch(`https://fitting-talented-muskox.ngrok-free.app/api/auth/callback?code=${code}&lineId=${lineId}`);
     const result = await res.json();
 
     messageEl.innerText = result.success ? "✅ 註冊成功！" : "❌ 註冊失敗。";
