@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     document.getElementById("status").innerText = "登入成功！";
 
     // 建立 Microsoft OAuth 登入 URL
-    const state = encodeURIComponent(lineUserId); // 傳遞 LINE 使用者 ID 作為 state
+    const state = encodeURIComponent(lineUserId); // 傳遞 LINE 用戶 ID 作為 state
     const loginUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?` +
       `client_id=${clientId}` +
       `&response_type=code` +
