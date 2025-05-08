@@ -10,7 +10,7 @@ async function main() {
     if (!liff.isLoggedIn()) {
       console.log("尚未登入 LINE，進行登入...");
       // 如果尚未登入 LINE，請求登入
-      liff.login();
+      liff.login();  // 說明：這裡只會在尚未登入時觸發，避免多次執行
       return;
     }
 
