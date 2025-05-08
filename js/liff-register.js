@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async function() {
       console.log("尚未登入 LINE，進行登入...");
       // 如果尚未登入 LINE，請求登入
       liff.login();
+      return;
     }
 
     // 如果已登入，則取得使用者資料
