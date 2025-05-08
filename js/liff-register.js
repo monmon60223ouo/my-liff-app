@@ -6,15 +6,25 @@ document.addEventListener("DOMContentLoaded", async function() {
     // 初始化 LIFF 應用，必須提供你的 LIFF ID
     await liff.init({ liffId: "2007365918-80YK42kZ" });
 
-    // 檢查是否已登入 LINE
-    if (!liff.isLoggedIn()) {
-      console.log("尚未登入 LINE，進行登入...");
-      // 如果尚未登入 LINE，請求登入
-      liff.login();
-      return;
-    }
+    // 在 LIFF 初始化後檢查登入狀態
+    checkLoginStatus();
+  } catch (error) {
+    document.getElementById("status").innerText = "載入失敗，請稍後再試。";
+    console.error("LIFF 初始化錯誤:", error);
+  }
+});
 
-    // 如果已登入，則取得使用者資料
+async function checkLoginStatus() {
+  // 確保 LIFF SDK 加載完畢，並檢查用戶是否已經登入 LINE
+  if (!liff.isLoggedIn()) {
+    console.log("尚未登入 LINE，進行登入...");
+    // 如果尚未登入 LINE，請求登入
+    liff.login();
+    return;
+  }
+
+  // 如果已登入 LINE，繼續進行後續邏輯
+  try {
     const profile = await liff.getProfile();
     const lineUserId = profile.userId;
 
@@ -32,9 +42,8 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // 重定向到 Microsoft 登入頁面
     window.location.href = loginUrl;
-
   } catch (error) {
     document.getElementById("status").innerText = "載入失敗，請稍後再試。";
-    console.error("LIFF 初始化錯誤:", error);
+    console.error("取得 LINE 使用者資料錯誤:", error);
   }
-});
+}
