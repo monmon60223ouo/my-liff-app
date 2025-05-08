@@ -5,51 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teams 註冊</title>
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-  <script src="./js/liff-register.js"></script>
+  <!-- 將 liff-register.js 放在 <body> 結束前，確保 DOM 已經加載 -->
+  <script src="./js/liff-register.js" defer></script>
 </head>
 <body>
   <h2>正在載入 LIFF 應用...</h2>
 
   <!-- 顯示登入狀態的區域 -->
   <div id="status">載入中...</div>
-
-  <script>
-    // 等待頁面完全載入後再執行
-    window.onload = async function () {
-      try {
-        await liff.init({ liffId: "2007365918-80YK42kZ" });
-
-        // 檢查是否已登入 LINE
-        if (!liff.isLoggedIn()) {
-          console.log("尚未登入 LINE，進行登入...");
-          liff.login();
-          return;
-        }
-
-        // 如果已登入，則取得使用者資料
-        const profile = await liff.getProfile();
-        const lineUserId = profile.userId;
-
-        // 顯示登入成功的訊息
-        document.getElementById("status").innerText = "登入成功！";
-
-        // 建立 Microsoft OAuth 登入 URL
-        const state = encodeURIComponent(lineUserId); // 傳遞 LINE 使用者 ID 作為 state
-        const loginUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?` +
-          `client_id=${clientId}` +
-          `&response_type=code` +
-          `&redirect_uri=${encodeURIComponent(teamsRedirectUri)}` +
-          `&scope=User.Read` +
-          `&state=${state}`;
-
-        // 重定向到 Microsoft 登入頁面
-        window.location.href = loginUrl;
-
-      } catch (error) {
-        document.getElementById("status").innerText = "載入失敗，請稍後再試。";
-        console.error("LIFF 初始化錯誤:", error);
-      }
-    };
-  </script>
+  
 </body>
 </html>
