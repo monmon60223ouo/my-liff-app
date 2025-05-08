@@ -2,11 +2,51 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teams 註冊</title>
+  <!-- 載入 LIFF SDK -->
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
   <script src="./js/liff-register.js"></script>
 </head>
 <body>
   <h2>正在載入 LIFF 應用...</h2>
+
+  <div id="status"></div>
+
+  <script>
+    // 在頁面載入時執行
+    window.onload = async function () {
+      try {
+        await liff.init({ liffId: "2007365918-80YK42kZ" });
+
+        // 檢查是否已登入
+        if (!liff.isLoggedIn()) {
+          console.log("尚未登入 LINE，進行登入...");
+          liff.login(); // 進行登入
+          return;
+        }
+
+        // 取得使用者資料
+        const profile = await liff.getProfile();
+        const lineUserId = profile.userId;
+
+        // 顯示登入成功的訊息
+        document.getElementById("status").innerText = "登入成功！";
+
+        // 處理重定向邏輯
+        const state = encodeURIComponent(lineUserId);
+        const loginUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?` +
+          `client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(teamsRedirectUri)}&` +
+          `scope=User.Read&state=${state}`;
+
+        // 重定向到 Microsoft 登入頁面
+        window.location.href = loginUrl;
+
+      } catch (error) {
+        document.getElementById("status").innerText = "載入失敗，請稍後再試。";
+        console.error("LIFF 初始化錯誤:", error);
+      }
+    };
+  </script>
 </body>
 </html>
