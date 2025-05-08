@@ -1,7 +1,7 @@
 const clientId = "372abdfa-67fb-4b5f-ab2a-ee6de771d70e"; // Microsoft 登入的 clientId
 const teamsRedirectUri = "https://monmon60223ouo.github.io/my-liff-app/liff-teams-callback.html"; // Microsoft 登入後的回呼頁面
 
-async function main() {
+document.addEventListener("DOMContentLoaded", async function() {
   try {
     // 初始化 LIFF 應用，必須提供你的 LIFF ID
     await liff.init({ liffId: "2007365918-80YK42kZ" });
@@ -10,7 +10,7 @@ async function main() {
     if (!liff.isLoggedIn()) {
       console.log("尚未登入 LINE，進行登入...");
       // 如果尚未登入 LINE，請求登入
-      liff.login();  // 說明：這裡只會在尚未登入時觸發，避免多次執行
+      liff.login();
       return;
     }
 
@@ -34,11 +34,7 @@ async function main() {
     window.location.href = loginUrl;
 
   } catch (error) {
-    // 如果 LIFF 初始化失敗或有其他錯誤，顯示錯誤訊息
     document.getElementById("status").innerText = "載入失敗，請稍後再試。";
     console.error("LIFF 初始化錯誤:", error);
   }
-}
-
-// 執行 main 函數，初始化 LIFF 應用
-main();
+});
